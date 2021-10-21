@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  CI: true
+  API_TOKEN: DGANGkghJGIWRL
+
+jobs:
+  ci:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['12', '14', '16']
+        os: [ubuntu-latest]
+
+    name: Node ${{ matrix.node }} on ${{ matrix.os }}
+    steps:
+      - name: ♻️ Check out Git Repository
+        uses: actions/checkout@v2
+
+      - name: 🔖  Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: ⬇️  Install npm dependencies
+        run: npm install
+
+      - name: 🧽 Lint all files
+        run: npm run lint:check
+
+      - name: ✅  Run tests
+        run: npm run test -- --coverage
+
+      - name: 🌪️ Publish to coveralls.io
+        uses: coverallsapp/github-action@v1.1.2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

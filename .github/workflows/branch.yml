@@ -1,0 +1,52 @@
+name: branch_check
+
+on:
+  push:
+    branches:
+      - '*'
+      - '!main'
+  pull_request:
+    branches:
+      - main
+
+env:
+  CI: true
+  NODE_ENV: test
+  API_TOKEN: DGANGkghJGIWRL
+
+jobs:
+  branch_check:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['12', '14', '16']
+        os: [ubuntu-latest]
+
+    name: Node ${{ matrix.node }} on ${{ matrix.os }}
+    steps:
+      - name: ♻️ Check out Git Repository
+        uses: actions/checkout@v2
+
+      - name: 🔖  Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: ⬇️  Install npm dependencies
+        run: npm install
+
+      - name: 🧽 Lint all files
+        run: npm run lint:check
+
+      - name: ✅  Run tests
+        run: npm run test -- --coverage
+
+      - name: 🔮 Report test coverage
+        if: github.event_name == 'pull_request'
+        uses: artiomtr/jest-coverage-report-action@v2.0-rc.5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          skip-step: all
+          # threshold: 60 # optional parameter
+          # test-script: npm run test:custom
