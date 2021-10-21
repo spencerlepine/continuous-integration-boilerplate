@@ -1,0 +1,62 @@
+{
+  "name": "continuous-integration-boilerplate",
+  "version": "1.0.0",
+  "description": "Project boilerplate set up with Continuous Integration",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest --detectOpenHandles --runInBand --forceExit",
+    "test:watch": "jest --onlyChanged --watch",
+    "test:db:connection": "jest --detectOpenHandles --runInBand --forceExit **/**/connection.test.js",
+    "test:branch": "jest --coverage --changedSince=main --watch --coverageThreshold='{\"global\":{\"statements\":\"60\",\"branches\":\"60\",\"functions\":\"60\",\"lines\":\"60\"}}'",
+    "format": "npm run pretty -- --write",
+    "lint:check": "eslint --ignore-path .gitignore --ext .js .",
+    "pretty": "prettier --ignore-path .gitignore \"**/*.+(js|json|md)\"",
+    "pretest": "echo 'package.json.scripts.pretest => use a pretest script!'",
+    "ORM": "sequelize --options-path=src/database/sequelize/options.js",
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "pre-commit": "lint-staged",
+    "husky:remove": "rm -f .husky/pre-commit && rm -f .husky/pre-push",
+    "create-hook": "npm run husky:remove && husky add .husky/pre-commit 'npm run pre-commit' && husky add .husky/pre-push 'npm test'",
+    "prepare": "husky install && npm run create-hook"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spencerlepine/continuous-integration-boilerplate.git"
+  },
+  "keywords": [],
+  "author": "Spencer Lepine",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spencerlepine/continuous-integration-boilerplate/issues"
+  },
+  "homepage": "https://github.com/spencerlepine/continuous-integration-boilerplate#readme",
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2",
+    "husky": "^7.0.4",
+    "lint-staged": "^11.2.3",
+    "prettier": "^2.4.1"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jest": "^27.3.1",
+    "joi": "^17.4.2",
+    "regenerator-runtime": "^0.13.9"
+  },
+  "hooks": {
+    "pre-commit": "lint-staged && npm run test",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  },
+  "lint-staged": {
+    "*.{js,json,md}": [
+      "prettier --write"
+    ],
+    "*.js": "eslint --cache --fix",
+    "*.{js,md}": "prettier --write"
+  }
+}
