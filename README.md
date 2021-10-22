@@ -18,12 +18,11 @@ Project boilerplate set up with Continuous Integration
 - `npm run test`: run ALL test files
 - `npm run test:watch`: test files with auto refresh
 - `npm run test:branch`: run tests only on branch
-# Setup
+# Boilerplate Setup
 
-```sh
-$ npm install
-$ npm run start
-```
+- [`config.js`](./config/config.js): add configuration variables
+- [`.env`](./.env): update enviroment variables
+- [`README.md`](./github/workflows/main.yml): change badge URLS => `spencerlepine/continuous-integration-boilerplate` to `username/repo`
 
 ## 📦 Technologies:
 
@@ -33,13 +32,6 @@ $ npm run start
 - [Lint-Staged](https://www.npmjs.com/package/lint-staged)
 - [Jest](https://jestjs.io/)
 - [Coveralls.io](https://coveralls.io/)
-
-# Boilerplate Setup
-
-- [`config.js`](./config/config.js): add configuration variables
-- [`.env`](./.env): update enviroment variables
-- [`README.md`](./github/workflows/main.yml): change badge URLS => `spencerlepine/continuous-integration-boilerplate` to `username/repo`
-
 # Overview:
 ## GitHub Actions:
 
