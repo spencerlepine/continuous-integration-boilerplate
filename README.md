@@ -2,7 +2,23 @@
 
 Project boilerplate set up with Continuous Integration
 
-### Setup
+## Features
+
+### GitHub Actions:
+- Automated testing/building with isolated virtual machines.
+
+### Pre-commit Hooks:
+- Enforces linter styles and runs tests
+### Test Configuration:
+
+- Sample Jest configuration file
+
+## Scripts:
+- `npm run lint:check`: check files with ESLint styles
+- `npm run test`: run ALL test files
+- `npm run test:watch`: test files with auto refresh
+- `npm run test:branch`: run tests only on branch
+# Setup
 
 ```sh
 $ npm install
@@ -12,7 +28,6 @@ $ npm run start
 ## 📦 Technologies:
 
 - [GitHub Actions](https://docs.github.com/en/actions)
-  - Automated testing/building with isolated virtual machines
 - [Husky](https://typicode.github.io/husky/#/)
 - [ESLint](https://eslint.org/)
 - [Lint-Staged](https://www.npmjs.com/package/lint-staged)
@@ -26,7 +41,6 @@ $ npm run start
 - [`README.md`](./github/workflows/main.yml): change badge URLS => `spencerlepine/continuous-integration-boilerplate` to `username/repo`
 
 # Overview:
-
 ## GitHub Actions:
 
 - Triggers on [main branch push](`.github/workflows/main.yml`)
